@@ -1,6 +1,6 @@
 // WelcomeScreen.js
 import React from "react";
-import { SafeAreaView, Text, Button, StyleSheet } from "react-native";
+import { SafeAreaView, Text, Button, StyleSheet, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
@@ -13,10 +13,16 @@ export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
     });
   };
 
+  const navigateToTestScreen = () => {
+    navigation.navigate("TestScreen");
+  };
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.headerText}>Welcome!</Text>
-      <Button title="Logout" onPress={handleLogout} />
+      <View style={styles.buttonContainer}>
+        <Button title="New Screen" onPress={navigateToTestScreen} />
+        <Button title="Logout" onPress={handleLogout} />
+      </View>
     </SafeAreaView>
   );
 }
@@ -31,5 +37,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginBottom: 20,
     textAlign: "center",
+  },
+  buttonContainer: {
+    marginVertical: 10,
+    alignSelf: "center",
+    width: "50%",
   },
 });

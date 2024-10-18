@@ -36,8 +36,8 @@ export default function LoginScreen({ navigation, setIsLoggedIn }) {
     }
 
     const url = isLogin
-      ? "http://192.168.1.238:5000/login"
-      : "http://192.168.1.238:5000/register";
+      ? "http://10.200.110.215:5000/login"
+      : "http://10.200.110.215:5000/register";
 
     const body = isLogin
       ? { username: email, password }
@@ -156,10 +156,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     paddingLeft: 8,
   },
-  buttonContainer: {
-    marginTop: 20,
-    alignItems: "center",
-  },
+
   button: {
     width: "75%", // 75% of the width
     marginBottom: 15, // spacing between buttons
