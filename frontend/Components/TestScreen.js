@@ -1,5 +1,7 @@
 import React from "react";
-import { SafeAreaView, Text, StyleSheet } from "react-native";
+import { SafeAreaView, Text } from "react-native";
+import styles from "./styles/styles";
+
 export default function TestScreen() {
   return (
     <SafeAreaView style={styles.container}>
@@ -7,15 +9,3 @@ export default function TestScreen() {
     </SafeAreaView>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 16,
-  },
-  headerText: {
-    fontSize: 24,
-    marginBottom: 20,
-    textAlign: "center",
-  },
-});
