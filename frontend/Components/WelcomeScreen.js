@@ -14,23 +14,29 @@ import EditItemModal from "./EditItemModal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "./styles/styles";
 import { FontAwesome } from "@expo/vector-icons";
+//import { Image } from "react-native";
 
 export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
   const [selectedItem, setSelectedItem] = useState(null);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  //const [username, setUsername] = useState("");
 
-  const navigateToTestScreen = () => {
-    navigation.navigate("TestScreen");
-  };
+  // const navigateToTestScreen = () => {
+  //   navigation.navigate("TestScreen");
+  // };
+  //Navigation to Profile Screen
+  // const navigateToProfileScreen = () => {
+  //     navigation.navigate("ProfileScreen");
+  // }
 
   useEffect(() => {
     const fetchItems = async () => {
       setLoading(true);
       try {
         const token = await AsyncStorage.getItem("token");
-        const response = await fetch("http://172.20.10.7:5000/items/", {
+        const response = await fetch("http://192.168.1.238:5000/items/", {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -47,6 +53,26 @@ export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
 
     fetchItems();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     try {
+  //       const token = await AsyncStorage.getItem("token");
+  //       const response = await fetch("http://192.168.1.238:5000/username/", {
+  //         method: "GET",
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       });
+  //       const result = await response.json();
+  //       setUsername(result.username); // Store the username from the response
+  //     } catch (error) {
+  //       console.error("Error fetching user data:", error);
+  //     }
+  //   };
+
+  //   fetchUserData(); // Fetch the user data when component mounts
+  // }, []);
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem("token");
@@ -65,13 +91,16 @@ export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
   const handleDeletePress = async (itemId) => {
     try {
       const token = await AsyncStorage.getItem("token");
-      const response = await fetch(`http://172.20.10.7:5000/items/${itemId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://192.168.1.238:5000/items/${itemId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (!response.ok) {
         const errorResponse = await response.json();
         console.error("server error", errorResponse);
@@ -90,7 +119,7 @@ export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
     try {
       const token = await AsyncStorage.getItem("token");
       console.log("Token in addItem:", token);
-      const response = await fetch("http://172.20.10.7:5000/items/", {
+      const response = await fetch("http://192.168.1.238:5000/items/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -116,7 +145,7 @@ export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
     try {
       const token = await AsyncStorage.getItem("token");
       const response = await fetch(
-        `http://172.20.10.7:5000/items/${editedItem._id}`,
+        `http://192.168.1.238:5000/items/${editedItem._id}`,
         {
           method: "PUT",
           headers: {
@@ -146,7 +175,11 @@ export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.headerText}>Welcome!</Text>
+      <Text style={styles.headerText}>Welcome! {username}</Text>
+      {/* <Image
+        source={avatar} // Use the imported local image
+        style={styles.profileImage} // Reference to styles for image size and shape
+      /> */}
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : data.length ? (
@@ -187,11 +220,6 @@ export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
       )}
 
       <View style={styles.buttonContainer}>
-        <Button
-          style={styles.button}
-          title="Test Screen"
-          onPress={navigateToTestScreen}
-        />
         <Button style={styles.button} title="Logout" onPress={handleLogout} />
       </View>
     </SafeAreaView>
