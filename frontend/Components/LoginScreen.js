@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "./styles/styles";
+import IPAddress from "./IpAddress";
 
 export default function LoginScreen({ navigation, setIsLoggedIn }) {
   const [email, setEmail] = useState("");
@@ -37,8 +38,8 @@ export default function LoginScreen({ navigation, setIsLoggedIn }) {
     }
 
     const url = isLogin
-      ? "http://192.168.1.238:5000/users/login"
-      : "http://192.168.1.238:5000/users/register";
+      ? `http://${IPAddress()}:5000/users/login`
+      : `http://${IPAddress()}:5000/users/register`;
 
     const body = isLogin
       ? { username: email, password }
@@ -59,8 +60,12 @@ export default function LoginScreen({ navigation, setIsLoggedIn }) {
           setMessage("Login successful");
           if (result.token) {
             // Save token and update login state
-            console.log("Received token:", result.token);
+            //console.log("Received token:", result.token);
+            console.log("username:", result);
             await AsyncStorage.setItem("token", result.token);
+            await AsyncStorage.setItem("username", result.username);
+            await AsyncStorage.setItem("firstname", result.firstname);
+            await AsyncStorage.setItem("lastname", result.lastname);
             const storedToken = await AsyncStorage.getItem("token");
             console.log("Stored token:", storedToken);
             setIsLoggedIn(true);

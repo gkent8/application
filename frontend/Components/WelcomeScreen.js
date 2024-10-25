@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   Text,
-  Button,
+  Pressable,
   TouchableOpacity,
   View,
   FlatList,
@@ -14,29 +14,28 @@ import EditItemModal from "./EditItemModal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "./styles/styles";
 import { FontAwesome } from "@expo/vector-icons";
-//import { Image } from "react-native";
+import { Image } from "react-native";
+import IPAddress from "./IpAddress";
+import avatar from "./assets/avatar.jpg";
 
 export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
   const [selectedItem, setSelectedItem] = useState(null);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  //const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
 
-  // const navigateToTestScreen = () => {
-  //   navigation.navigate("TestScreen");
-  // };
-  //Navigation to Profile Screen
-  // const navigateToProfileScreen = () => {
-  //     navigation.navigate("ProfileScreen");
-  // }
+  // Navigation to Profile Screen
+  const navigateToProfileScreen = () => {
+    navigation.navigate("ProfileScreen");
+  };
 
   useEffect(() => {
     const fetchItems = async () => {
       setLoading(true);
       try {
         const token = await AsyncStorage.getItem("token");
-        const response = await fetch("http://192.168.1.238:5000/items/", {
+        const response = await fetch(`http://${IPAddress()}:5000/items/`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -54,25 +53,19 @@ export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
     fetchItems();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     try {
-  //       const token = await AsyncStorage.getItem("token");
-  //       const response = await fetch("http://192.168.1.238:5000/username/", {
-  //         method: "GET",
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-  //       const result = await response.json();
-  //       setUsername(result.username); // Store the username from the response
-  //     } catch (error) {
-  //       console.error("Error fetching user data:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = await AsyncStorage.getItem("token");
+      const storedUsername = await AsyncStorage.getItem("username");
+      const storedFirstName = await AsyncStorage.getItem("firstName");
+      const storedLastName = await AsyncStorage.getItem("lastName");
+      setUsername(storedUsername); // Store the username from the response
+      setFirstName(storedFirstName);
+      setLastName(storedLastName);
+    };
 
-  //   fetchUserData(); // Fetch the user data when component mounts
-  // }, []);
+    fetchUserData(); // Fetch the user data when component mounts
+  }, []);
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem("token");
@@ -92,7 +85,7 @@ export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
     try {
       const token = await AsyncStorage.getItem("token");
       const response = await fetch(
-        `http://192.168.1.238:5000/items/${itemId}`,
+        `http://${IPAddress()}:5000/items/${itemId}`,
         {
           method: "DELETE",
           headers: {
@@ -119,7 +112,7 @@ export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
     try {
       const token = await AsyncStorage.getItem("token");
       console.log("Token in addItem:", token);
-      const response = await fetch("http://192.168.1.238:5000/items/", {
+      const response = await fetch(`http://${IPAddress()}:5000/items/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -145,7 +138,7 @@ export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
     try {
       const token = await AsyncStorage.getItem("token");
       const response = await fetch(
-        `http://192.168.1.238:5000/items/${editedItem._id}`,
+        `http://${IPAddress()}:5000/items/${editedItem._id}`,
         {
           method: "PUT",
           headers: {
@@ -175,11 +168,11 @@ export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.headerText}>Welcome! {username}</Text>
-      {/* <Image
+      <Text style={styles.headerText}>Welcome! {firstName}</Text>
+      <Image
         source={avatar} // Use the imported local image
         style={styles.profileImage} // Reference to styles for image size and shape
-      /> */}
+      />
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : data.length ? (
@@ -220,7 +213,12 @@ export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
       )}
 
       <View style={styles.buttonContainer}>
-        <Button style={styles.button} title="Logout" onPress={handleLogout} />
+        <Pressable style={styles.button} onPress={navigateToProfileScreen}>
+          <Text style={styles.description}>Profile</Text>
+        </Pressable>
+        <Pressable style={styles.button} onPress={handleLogout}>
+          <Text style={styles.description}>Logout</Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );

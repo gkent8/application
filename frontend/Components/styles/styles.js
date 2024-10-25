@@ -23,8 +23,11 @@ export default StyleSheet.create({
     paddingLeft: 8,
   },
   button: {
-    marginBottom: 15, // spacing between buttons
-    width: "70%",
+    fontSize: 24,
+    marginBottom: 10, // spacing between buttons
+    width: "50%",
+    padding: 15,
+    borderRadius: 50,
     alignSelf: "center",
   },
   message: {
@@ -33,11 +36,13 @@ export default StyleSheet.create({
     textAlign: "center",
   },
   buttonContainer: {
-    marginVertical: 10,
-    width: "100%",
+    marginVertical: 20,
+    flexDirection: "row",
+    width: "50%",
     display: "flex",
     justifyContent: "space-between",
-    height: 80,
+    height: "auto",
+    marginHorizontal: "auto",
   },
   item: {
     display: "flex",
