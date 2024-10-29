@@ -9,6 +9,7 @@ import {
   Button,
   View,
   Image,
+  Pressable,
 } from "react-native";
 
 export default function ProfileScreen({ navigation }) {
@@ -24,9 +25,9 @@ export default function ProfileScreen({ navigation }) {
     const fetchUserData = async () => {
       const storedUsername = await AsyncStorage.getItem("username");
       console.log("storedUsername", storedUsername);
-      const storedFirstName = await AsyncStorage.getItem("firstname");
+      const storedFirstName = await AsyncStorage.getItem("firstName");
       console.log("storedFirstName", storedFirstName);
-      const storedLastName = await AsyncStorage.getItem("lastname");
+      const storedLastName = await AsyncStorage.getItem("lastName");
       console.log("storedLastName", storedLastName);
       setUsername(storedUsername); // Store the username from the response
       setFirstName(storedFirstName);
@@ -38,14 +39,17 @@ export default function ProfileScreen({ navigation }) {
 
   const UpdateUserData = async () => {
     await AsyncStorage.setItem("username", username);
-    await AsyncStorage.setItem("firstname", firstName);
-    await AsyncStorage.setItem("lastname", lastName);
+    await AsyncStorage.setItem("firstName", firstName);
+    console.log("firstName", firstName);
+    console.log("storedFirstName", await AsyncStorage.getItem("firstName"));
+    await AsyncStorage.setItem("lastName", lastName);
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.headerText}>Profile Screen</Text>
       <Image
+        style={styles.img}
         source={avatar} // Use the imported local image
         //style={styles.profileImage} // Reference to styles for image size and shape
       />
@@ -64,8 +68,15 @@ export default function ProfileScreen({ navigation }) {
         value={username}
         onChangeText={(text) => setUsername(text)}
       />
-      <Button title="Update" onPress={UpdateUserData} />
-      <Button title="Go to Welcome Screen" onPress={navigateToWelcome} />
+      <View style={styles.buttonContainer}>
+        <Pressable style={styles.button} onPress={UpdateUserData}>
+          <Text style={styles.description}> Update </Text>
+        </Pressable>
+
+        <Pressable style={styles.button} onPress={navigateToWelcome}>
+          <Text style={styles.description}> Go to Welcome Screen </Text>
+        </Pressable>
+      </View>
     </SafeAreaView>
   );
 }

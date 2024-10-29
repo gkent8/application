@@ -6,19 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c8f923f7-b9c1-4e7a-855e-8b8b598e7e88" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend" beforeDir="false" afterPath="$PROJECT_DIR$/backend" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/userRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/userRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Components/IpAddress.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Components/IpAddress.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/Components/LoginScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Components/LoginScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/Components/TestScreen.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Components/ProfileScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Components/ProfileScreen.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/Components/WelcomeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Components/WelcomeScreen.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/Components/styles/styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Components/styles/styles.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/assets/adaptive-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/assets/avatar.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/assets/favicon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/assets/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/assets/splash.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

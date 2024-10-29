@@ -6,6 +6,7 @@ import {
   TextInput,
   Button,
   View,
+  Pressable,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "./styles/styles";
@@ -64,8 +65,8 @@ export default function LoginScreen({ navigation, setIsLoggedIn }) {
             console.log("username:", result);
             await AsyncStorage.setItem("token", result.token);
             await AsyncStorage.setItem("username", result.username);
-            await AsyncStorage.setItem("firstname", result.firstname);
-            await AsyncStorage.setItem("lastname", result.lastname);
+            await AsyncStorage.setItem("firstName", result.firstname);
+            await AsyncStorage.setItem("lastName", result.lastname);
             const storedToken = await AsyncStorage.getItem("token");
             console.log("Stored token:", storedToken);
             setIsLoggedIn(true);
@@ -124,18 +125,20 @@ export default function LoginScreen({ navigation, setIsLoggedIn }) {
           secureTextEntry={true}
         />
         <View>
-          <View style={styles.buttonContainer}>
-            <View style={styles.button}>
-              <Button
-                title={isLogin ? "Login" : "Sign Up"}
-                onPress={handlePress}
-              />
+          <View style={loginStyles.loginButtonContainer}>
+            <View>
+              <Pressable style={styles.button} onPress={handlePress}>
+                <Text style={styles.description}>
+                  {isLogin ? "Login" : "Sign Up"}
+                </Text>
+              </Pressable>
             </View>
-            <View style={styles.button}>
-              <Button
-                title={isLogin ? "Switch to Sign Up" : "Switch to Login"}
-                onPress={() => setIsLogin(!isLogin)}
-              />
+            <View>
+              <Pressable style={styles.button} onPress={handlePress}>
+                <Text style={styles.description}>
+                  {isLogin ? "Switch to Sign Up" : "Switch to Login"}
+                </Text>
+              </Pressable>
             </View>
           </View>
         </View>
@@ -148,9 +151,10 @@ export default function LoginScreen({ navigation, setIsLoggedIn }) {
 
 const loginStyles = StyleSheet.create({
   loginButtonContainer: {
-    marginTop: 20,
+    margin: 10,
     width: "100%",
     display: "flex",
     justifyContent: "center",
+    alignItems: "center",
   },
 });

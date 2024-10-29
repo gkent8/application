@@ -24,6 +24,8 @@ export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
 
   // Navigation to Profile Screen
   const navigateToProfileScreen = () => {
@@ -168,12 +170,12 @@ export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.headerText}>Welcome! {firstName}</Text>
+      <Text style={styles.headerText}>Welcome {firstName}!</Text>
       <Image
         source={avatar} // Use the imported local image
-        style={styles.profileImage} // Reference to styles for image size and shape
+        style={styles.img} // Reference to styles for image size and shape
       />
-      {loading ? (
+      {/* {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : data.length ? (
         <View>
@@ -210,12 +212,14 @@ export default function WelcomeScreen({ navigation, setIsLoggedIn }) {
           <Text>No Items, press '+' to add items</Text>
           <AddItemModal onAddItem={addItem} />
         </View>
-      )}
+      )} */}
 
       <View style={styles.buttonContainer}>
         <Pressable style={styles.button} onPress={navigateToProfileScreen}>
           <Text style={styles.description}>Profile</Text>
         </Pressable>
+      </View>
+      <View style={styles.buttonContainer}>
         <Pressable style={styles.button} onPress={handleLogout}>
           <Text style={styles.description}>Logout</Text>
         </Pressable>
