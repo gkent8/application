@@ -134,7 +134,10 @@ export default function LoginScreen({ navigation, setIsLoggedIn }) {
               </Pressable>
             </View>
             <View>
-              <Pressable style={styles.button} onPress={handlePress}>
+              <Pressable
+                style={styles.button}
+                onPress={() => setIsLogin(!isLogin)}
+              >
                 <Text style={styles.description}>
                   {isLogin ? "Switch to Sign Up" : "Switch to Login"}
                 </Text>
